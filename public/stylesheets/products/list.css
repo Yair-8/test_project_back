@@ -1,0 +1,12 @@
+.prod-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    height: 80px;
+    margin: 10px;
+}
+.prod-image{
+    max-height: 80px;
+    max-width: 80px;
+}

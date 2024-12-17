@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const userTypeSchema = new Schema({
   title: {
     type: String,
     required: [true, "Name is required"],
@@ -12,5 +12,5 @@ const userSchema = new Schema({
   },
 });
 
-const Type = mongoose.model("Type", userSchema);
-export default Type;
+const userType = mongoose.model("Type", userTypeSchema);
+export default userType;

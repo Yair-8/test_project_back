@@ -44,6 +44,7 @@ class ProductController {
     if (!req.user) {
       return res.status(403).json({ error: "Access denied" });
     }
+    const data = req.body;
     try {
       const productData = {
         ...req.body,
@@ -64,6 +65,7 @@ class ProductController {
     } catch (err) {
       res.status(500).json({
         errors: [{ msg: err.message }],
+        product: data,
         user: req.user,
       });
     }

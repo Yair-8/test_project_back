@@ -17,7 +17,7 @@ const auth = (app) => {
   });
 
   // Middleware для перевірки аутентифікації та авторизації
-  app.use((req, res, next) => {
+  app.use(async (req, res, next) => {
     //req = const response = await LoginApiManager.login(formData- прийшла з login.html
 
     // Відкриті шляхи, які не потребують авторизації
@@ -32,7 +32,10 @@ const auth = (app) => {
       console.log("req.path===============", req.path);
       try {
         // Парсинг токена та додавання користувача до запиту
-        req.user = parseBearer(req.headers.authorization, req.headers);
+        req.user = parseBearer(req.headers.authorization, req.headers, [
+          "type",
+        ]);
+        console.log("req.user==============>>>>>>>>>>>>>>>>>>=", req.user);
       } catch (err) {
         // Якщо авторизація не вдалася, повертається статус 401
         return res.status(401).json({ result: "This access Denied" });
@@ -47,4 +50,4 @@ const auth = (app) => {
 };
 
 // Експорт функції auth як модуля за замовчуванням
-export default auth;
+export { auth };

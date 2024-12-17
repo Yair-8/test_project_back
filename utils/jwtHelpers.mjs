@@ -7,7 +7,7 @@ const expiresIn = "1d";
 const tokenKey = config.tokenKey; // Saved in .env !!!
 
 // Функція для парсингу Bearer токена та декодування користувача
-export function parseBearer(bearer, headers) {
+export function parseBearer(bearer, headers, additionalFields = []) {
   let token;
   // Перевіряємо, чи токен починається з 'Bearer '
   if (bearer.startsWith("Bearer ")) {
@@ -16,6 +16,11 @@ export function parseBearer(bearer, headers) {
   try {
     // Декодуємо токен з використанням підготовленого секрету
     const decoded = jwt.verify(token, prepareSecret(headers));
+    additionalFields.forEach((field) => {
+      if (decoded[field]) {
+        decoded[field] = decoded[field];
+      }
+    });
     return decoded; // Повертаємо декодовані дані
   } catch (err) {
     // Якщо токен невірний або закінчився його термін дії, буде згенеровано помилку

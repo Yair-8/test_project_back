@@ -4,6 +4,7 @@ import UserValidator from "../../../validators/userValidator.mjs";
 import { checkSchema } from "express-validator";
 
 const router = express.Router();
+
 router.get("/", UserController.usersList);
 router.get("/register/:id?", UserController.registerForm);
 router.post(

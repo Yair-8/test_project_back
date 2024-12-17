@@ -18,7 +18,7 @@ class AuthController {
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
-        type: typeId._id,
+        type: typeId,
       });
       user.setPassword(req.body.password);
       const savedUser = await user.save();
@@ -62,9 +62,13 @@ class AuthController {
     }
 
     try {
-      const user = await UsersDBService.findOne({
-        email: req.body.email,
-      });
+      const user = await UsersDBService.findOne(
+        {
+          email: req.body.email,
+        },
+        null,
+        ["type"]
+      );
       if (!user) {
         return res.status(401).json({ error: "User not found" });
       }
@@ -76,6 +80,8 @@ class AuthController {
         {
           id: user._id,
           username: user.username,
+          pagesPermissions: user.type?.pagesPermissions,
+          type: user.type,
         },
         req.headers
       );
